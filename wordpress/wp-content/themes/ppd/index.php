@@ -2,7 +2,7 @@
 
 <main>
   <div class="wrap" style="padding: 180px 0 100px">
-    <h1><?php bloginfo('name'); ?></h1>
+    <h1><?php the_title(); ?></h1>
 
     <?php if (have_posts()) : ?>
       <?php while (have_posts()) : ?>
