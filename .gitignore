@@ -3,12 +3,12 @@
 .env
 
 # default Wordpress themes
-wordpress/themes/twentytwentythree
-wordpress/themes/twentytwentyfour
-wordpress/themes/twentytwentyfive
+wordpress/wp-content/themes/twentytwentythree
+wordpress/wp-content/themes/twentytwentyfour
+wordpress/wp-content/themes/twentytwentyfive
 
 # Wordpress plugins
-wordpress/plugins/*
+wordpress/wp-content/plugins/*
 
 # Wordpress uploads
-wordpress/uploads/*
+wordpress/wp-content/uploads/*
