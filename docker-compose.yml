@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  wordpress:
+    container_name: ${DOCKER_PREFIX}wordpress
+    restart: always
+    build:
+      context: ./docker/wordpress
+      dockerfile: Dockerfile
+    ports:
+      - "${WORDPRESS_PORT}:80"
+    environment:
+      WORDPRESS_DB_HOST: ${WP_DB_HOST:-db}
+      WORDPRESS_DB_USER: ${WP_DB_USER:-wordpress}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
+      WORDPRESS_DB_NAME: ${WP_DB_NAME:-wordpress}
+    volumes:
+      - wordpress_data:${PROJECT_FOLDER}
+      - ./wordpress/wp-content/themes:${PROJECT_FOLDER}/wp-content/themes
+      - ./wordpress/wp-content/plugins:${PROJECT_FOLDER}/wp-content/plugins
+      - ./wordpress/wp-content/uploads:${PROJECT_FOLDER}/wp-content/uploads
+    working_dir: ${PROJECT_FOLDER}
+    depends_on:
+      - db
+    networks:
+      - default
+
+  db:
+    container_name: ${DOCKER_PREFIX}wordpress-db
+    restart: always
+    build:
+      context: ./docker/db
+      dockerfile: Dockerfile
+    environment:
+      MYSQL_DATABASE: ${WP_DB_NAME:-wordpress}
+      MYSQL_USER: ${WP_DB_USER:-wordpress}
+      MYSQL_PASSWORD: ${WP_DB_PASSWORD:-wordpress}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-rootpassword}
+    ports:
+      - "${WORDPRESS_DB_PORT}:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  wordpress_data:
+  db_data:

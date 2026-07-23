@@ -1,0 +1,14 @@
+.agents
+.idea
+.env
+
+# default Wordpress themes
+wordpress/themes/twentytwentythree
+wordpress/themes/twentytwentyfour
+wordpress/themes/twentytwentyfive
+
+# Wordpress plugins
+wordpress/plugins/*
+
+# Wordpress uploads
+wordpress/uploads/*
