@@ -311,16 +311,21 @@ button {
 }
 
 .statement-track {
-  font-size: clamp(32px,4vw,58px);
+  font-size: clamp(32px, 4vw, 58px);
   font-weight: 700;
   line-height: 1.05;
   white-space: nowrap;
-  transform: translateX(-22%);
+  display: flex;
+  align-items: center;
+  will-change: transform;
 }
 
 .statement-track span {
   display: inline-block;
-  margin: 0 10vw;
+  padding: 0 15vw;
+  flex-shrink: 0;
+  transition: filter 0.3s ease, transform 0.3s ease;
+  text-align: center;
 }
 
 .statement-track span:not(.middle) {
@@ -889,20 +894,21 @@ button {
   }
 
   .statement-track {
-    white-space: normal;
+    white-space: nowrap;
     transform: none;
-    padding: 0 16px;
-    width: 100%;
+    padding: 0;
+    width: auto;
     display: flex;
+    font-size: clamp(24px, 5vw, 32px);
   }
 
   .statement-track span {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0;
+    padding: 0 15vw;
   }
 
   .statement-track span:not(.middle) {
-    display: none;
+    display: inline-block;
   }
 
   .split {
@@ -997,6 +1003,10 @@ button {
   .mosaic {
     gap: 4px;
     grid-auto-rows: 62px;
+  }
+
+  .statement-track {
+    font-size: 20px;
   }
 
   .contact h2 {

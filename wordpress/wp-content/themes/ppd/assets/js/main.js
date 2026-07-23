@@ -43,6 +43,97 @@
     });
   });
 
+  function initStatementCarousel() {
+    const tracks = document.querySelectorAll('.statement-track');
+
+    tracks.forEach(track => {
+      const originalSpans = Array.from(track.querySelectorAll('span'));
+      if (originalSpans.length === 0) return;
+
+      // Clone elements for seamless loop
+      // We need enough clones to cover the view and allow jumping back
+      originalSpans.forEach(span => {
+        const clone = span.cloneNode(true);
+        track.appendChild(clone);
+      });
+      originalSpans.forEach(span => {
+        const clone = span.cloneNode(true);
+        track.appendChild(clone);
+      });
+
+      let currentIndex = originalSpans.length; // Start at the first element of the second set
+      const interval = 8000; // 8 seconds
+      
+      track.style.transition = 'transform 0.6s ease-in-out';
+
+      function updateCarousel(immediate = false) {
+        if (immediate) {
+          track.style.transition = 'none';
+        } else {
+          track.style.transition = 'transform 0.6s ease-in-out';
+        }
+
+        const spans = track.querySelectorAll('span');
+        const targetSpan = spans[currentIndex];
+        
+        // Calculate position to center the targetSpan
+        const trackParent = track.parentElement;
+        const parentWidth = trackParent.offsetWidth;
+        const spanOffsetLeft = targetSpan.offsetLeft;
+        const spanWidth = targetSpan.offsetWidth;
+        
+        const targetTranslate = (parentWidth / 2) - (spanOffsetLeft + spanWidth / 2);
+        
+        track.style.transform = `translateX(${targetTranslate}px)`;
+
+        // Update .middle class
+        spans.forEach((span, index) => {
+          if (index === currentIndex) {
+            span.classList.add('middle');
+          } else {
+            span.classList.remove('middle');
+          }
+        });
+
+        if (immediate) {
+          // Force reflow
+          track.offsetHeight;
+        }
+      }
+
+      function next() {
+        currentIndex++;
+        updateCarousel();
+
+        // If we reached the end of the second set, jump back to the first set equivalent
+        if (currentIndex >= originalSpans.length * 2) {
+          setTimeout(() => {
+            currentIndex = originalSpans.length;
+            updateCarousel(true);
+          }, 600); // Wait for transition to finish
+        }
+      }
+
+      // Initial position
+      if (document.readyState === 'complete') {
+        updateCarousel(true);
+        setInterval(next, interval);
+      } else {
+        window.addEventListener('load', () => {
+          updateCarousel(true);
+          setInterval(next, interval);
+        });
+      }
+
+      // Handle resize to recalculate positions
+      window.addEventListener('resize', () => {
+        updateCarousel(true);
+      });
+    });
+  }
+
+  initStatementCarousel();
+
   jQuery('.split-carousel').each(function () {
     jQuery(this).owlCarousel({
       items: 1,
