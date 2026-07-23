@@ -86,7 +86,7 @@ get_header();
 <section class="statement">
     <div class="statement-track">
         <span>Dźwięk imersyjny sprawia,<br>że historia staje się <b class="green">doświadczeniem</b></span>
-        <span class="middle">To, czego nie widać w obrazie,<br>często<b class="green">słychać w dźwięku</b></span>
+        <span class="middle">To, czego nie widać w obrazie,<br>często <b class="green">słychać w dźwięku</b></span>
         <span>Dźwięk buduje<br>wiarygodność obrazu</span>
     </div>
 </section>
